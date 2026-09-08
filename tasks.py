@@ -29,9 +29,9 @@ def create_task(
     current_user: models.User = Depends(security.get_current_user)
 ):
     board = db.query(models.Board).filter(models.Board.id == task_data.board_id).first()
-    if not board:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Board not found")
-        
+    if not board or board.workspace.owner_id != current_user.id:
+        raise HTTPException(status_code=404, detail="Board not found or access denied")
+
     new_task = models.Task(
         title=task_data.title,
         description=task_data.description,
@@ -55,7 +55,10 @@ def update_task_status(
     task = db.query(models.Task).filter(models.Task.id == task_id).first()
     if not task:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found")
-        
+
+    if task.board.workspace.owner_id != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to modify this task")
+
     task.status = new_status
     db.commit()
     db.refresh(task)

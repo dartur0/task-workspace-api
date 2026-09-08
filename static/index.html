@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task Workspace UI</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>Task & Team Workspace</h1>
+    <span id="user-badge" class="user-badge">Not Authenticated</span>
+  </header>
+
+  <div class="card auth-form" id="auth-section">
+    <h3 class="auth-title">Sign In</h3>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button id="login-btn">Authenticate</button>
+    <p id="status" class="status-message"></p>
+  </div>
+
+  <div id="app-dashboard" class="hidden">
+
+    <div class="card toolbar">
+      <div class="toolbar-group">
+        <label class="field-label">WORKSPACE:</label>
+        <select id="workspace-select" class="form-select"></select>
+        <button id="new-workspace-btn" class="btn-small">+ New WS</button>
+      </div>
+
+      <div class="toolbar-group">
+        <label class="field-label">BOARD:</label>
+        <select id="board-select" class="form-select"></select>
+        <button id="new-board-btn" class="btn-small">+ New Board</button>
+      </div>
+    </div>
+
+    <div class="card task-form-card">
+      <h4 class="card-title">Create New Task</h4>
+      <div class="task-form">
+        <input type="text" id="new-task-title" placeholder="Task Title" class="task-title-input">
+        <select id="new-task-priority" class="form-select">
+          <option value="LOW">LOW</option>
+          <option value="MEDIUM" selected>MEDIUM</option>
+          <option value="HIGH">HIGH</option>
+        </select>
+        <button id="new-task-btn" class="btn-auto">+ Create Task</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="column">
+        <h3>To Do</h3>
+        <div id="todo-tasks"></div>
+      </div>
+      <div class="column">
+        <h3>In Progress</h3>
+        <div id="inprogress-tasks"></div>
+      </div>
+      <div class="column">
+        <h3>Completed</h3>
+        <div id="done-tasks"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
